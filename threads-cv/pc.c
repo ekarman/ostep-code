@@ -45,6 +45,7 @@ void *producer(void *arg) {
 	do_fill(i);                // p4
 	Cond_signal(&fill);        // p5
 	Mutex_unlock(&m);          // p6
+    printf("Filled: %d\n", i);
     }
 
     // end case: put an end-of-production marker (-1) 
@@ -72,6 +73,8 @@ void *consumer(void *arg) {
 	tmp = do_get();           // c4
 	Cond_signal(&empty);      // c5
 	Mutex_unlock(&m);         // c6
+    sleep(1);
+    printf("Got: %d\n", tmp);
     }
     return NULL;
 }
